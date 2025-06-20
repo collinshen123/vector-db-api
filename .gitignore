@@ -4,7 +4,7 @@ __pycache__/
 *.egg-info/
 
 # Virtual environment
-venv/
+venv_vector_db/
 
 # Environment variables
 .env
