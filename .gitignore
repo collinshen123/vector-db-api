@@ -1,0 +1,16 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# OS-specific
+.DS_Store
+
+# Editor settings
+.vscode/
