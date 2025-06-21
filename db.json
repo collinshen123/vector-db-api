@@ -1,0 +1,350 @@
+[
+  {
+    "id": "lib-001",
+    "documents": [
+      {
+        "id": "doc-001",
+        "chunks": [
+          {
+            "id": "chunk-001-1",
+            "text": "Chunk 1 from Document 1.",
+            "embedding": [
+              0.1,
+              0.3,
+              0.5
+            ],
+            "metadata": {
+              "source": "doc1"
+            },
+            "created_at": "2025-06-20T20:00:11+00:00"
+          },
+          {
+            "id": "chunk-001-2",
+            "text": "Chunk 2 from Document 1.",
+            "embedding": [
+              0.2,
+              0.1,
+              0.4
+            ],
+            "metadata": {
+              "source": "doc1"
+            },
+            "created_at": "2025-06-20T20:00:12+00:00"
+          },
+          {
+            "id": "chunk-001-3",
+            "text": "Chunk 3 from Document 1.",
+            "embedding": [
+              0.5,
+              0.4,
+              0.3
+            ],
+            "metadata": {
+              "source": "doc1"
+            },
+            "created_at": "2025-06-20T20:00:13+00:00"
+          },
+          {
+            "id": "chunk-001-4",
+            "text": "Chunk 4 from Document 1.",
+            "embedding": [
+              0.7,
+              0.1,
+              0.6
+            ],
+            "metadata": {
+              "source": "doc1"
+            },
+            "created_at": "2025-06-20T20:00:14+00:00"
+          },
+          {
+            "id": "chunk-001-5",
+            "text": "Chunk 5 from Document 1.",
+            "embedding": [
+              0.3,
+              0.9,
+              0.2
+            ],
+            "metadata": {
+              "source": "doc1"
+            },
+            "created_at": "2025-06-20T20:00:15+00:00"
+          }
+        ],
+        "metadata": {
+          "title": "Document 1"
+        },
+        "created_at": "2025-06-20T20:00:10+00:00"
+      },
+      {
+        "id": "doc-002",
+        "chunks": [
+          {
+            "id": "chunk-002-1",
+            "text": "Chunk 1 from Document 2.",
+            "embedding": [
+              0.3,
+              0.7,
+              0.8
+            ],
+            "metadata": {
+              "source": "doc2"
+            },
+            "created_at": "2025-06-20T20:00:21+00:00"
+          },
+          {
+            "id": "chunk-002-2",
+            "text": "Chunk 2 from Document 2.",
+            "embedding": [
+              0.1,
+              0.1,
+              0.9
+            ],
+            "metadata": {
+              "source": "doc2"
+            },
+            "created_at": "2025-06-20T20:00:22+00:00"
+          },
+          {
+            "id": "chunk-002-3",
+            "text": "Chunk 3 from Document 2.",
+            "embedding": [
+              0.2,
+              0.2,
+              0.2
+            ],
+            "metadata": {
+              "source": "doc2"
+            },
+            "created_at": "2025-06-20T20:00:23+00:00"
+          },
+          {
+            "id": "chunk-002-4",
+            "text": "Chunk 4 from Document 2.",
+            "embedding": [
+              0.4,
+              0.5,
+              0.6
+            ],
+            "metadata": {
+              "source": "doc2"
+            },
+            "created_at": "2025-06-20T20:00:24+00:00"
+          },
+          {
+            "id": "chunk-002-5",
+            "text": "Chunk 5 from Document 2.",
+            "embedding": [
+              0.9,
+              0.1,
+              0.1
+            ],
+            "metadata": {
+              "source": "doc2"
+            },
+            "created_at": "2025-06-20T20:00:25+00:00"
+          }
+        ],
+        "metadata": {
+          "title": "Document 2"
+        },
+        "created_at": "2025-06-20T20:00:20+00:00"
+      }
+    ],
+    "metadata": {
+      "name": "Demo Vector Library",
+      "category": "Large Sample"
+    },
+    "created_at": "2025-06-20T20:00:00+00:00"
+  },
+  {
+    "id": "fa4ad9b0-01d4-450a-98f7-d255d51e9171",
+    "documents": [
+      {
+        "id": "91ea816c-382c-4026-91c9-d2da77a48c1a",
+        "chunks": [
+          {
+            "id": "c975d37f-3656-496e-9465-0a97674a2a69",
+            "text": "Problem set 1",
+            "embedding": [
+              0.1,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-1"
+            },
+            "created_at": "2025-06-20T22:54:38.935172+00:00"
+          },
+          {
+            "id": "b6d70f32-4fd0-48da-9cf8-7c4fa365e1b5",
+            "text": "Creative project 4",
+            "embedding": [
+              0.15000000000000002,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-2"
+            },
+            "created_at": "2025-06-20T22:54:38.935202+00:00"
+          },
+          {
+            "id": "b576a82b-66df-4c3a-a47d-19f7e9520013",
+            "text": "Programming assignment 2",
+            "embedding": [
+              0.2,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-3"
+            },
+            "created_at": "2025-06-20T22:54:38.935210+00:00"
+          },
+          {
+            "id": "38fdcfb5-4ebd-4ce8-afba-e49e38ba88d8",
+            "text": "Elevator pitch assignment",
+            "embedding": [
+              0.25,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-4"
+            },
+            "created_at": "2025-06-20T22:54:38.935216+00:00"
+          }
+        ],
+        "metadata": {
+          "title": "Homework"
+        },
+        "created_at": "2025-06-20T22:54:38.935217+00:00"
+      },
+      {
+        "id": "1f5d16cb-de9f-4beb-9b46-1dde5b1ea317",
+        "chunks": [
+          {
+            "id": "edfb93fb-f9c9-4880-97d9-b0b0ede85c0b",
+            "text": "Walking the dog",
+            "embedding": [
+              0.69,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-1"
+            },
+            "created_at": "2025-06-20T23:08:07.890118+00:00"
+          },
+          {
+            "id": "9da9d908-afe9-4563-a4e9-3c45d511b29b",
+            "text": "Taking out trash",
+            "embedding": [
+              0.82,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-2"
+            },
+            "created_at": "2025-06-20T23:08:07.890133+00:00"
+          },
+          {
+            "id": "a421c7e5-2b71-4987-b495-0f1b91a05da7",
+            "text": "Cooking dinner",
+            "embedding": [
+              0.51,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-3"
+            },
+            "created_at": "2025-06-20T23:08:07.890143+00:00"
+          },
+          {
+            "id": "a68549ce-640b-46ce-bc8b-6cf1fa359eb7",
+            "text": "Getting the mail",
+            "embedding": [
+              0.74,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-4"
+            },
+            "created_at": "2025-06-20T23:08:07.890149+00:00"
+          }
+        ],
+        "metadata": {
+          "title": "Chores"
+        },
+        "created_at": "2025-06-20T23:08:07.890151+00:00"
+      }
+    ],
+    "metadata": {
+      "name": "lib-002",
+      "category": "small test"
+    },
+    "created_at": "2025-06-20T22:52:37.219602+00:00"
+  },
+  {
+    "id": "4d23e127-8222-4ee2-a547-bba9b2c61428",
+    "documents": [
+      {
+        "id": "44b10b3b-5e17-4d43-9311-168817e94b8d",
+        "chunks": [
+          {
+            "id": "47315a92-133c-4c20-9a3b-bf9941e2dca3",
+            "text": "The branches are strong",
+            "embedding": [
+              0.43,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-1"
+            },
+            "created_at": "2025-06-20T23:19:05.633157+00:00"
+          },
+          {
+            "id": "ed4216e9-f9af-4b76-a63a-98d317803d6c",
+            "text": "The bark is brown",
+            "embedding": [
+              0.74,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-2"
+            },
+            "created_at": "2025-06-20T23:19:05.633171+00:00"
+          },
+          {
+            "id": "fb750208-ab16-488f-ac82-35479f2b12ca",
+            "text": "The wood will not rot",
+            "embedding": [
+              0.13,
+              0.2,
+              0.3
+            ],
+            "metadata": {
+              "source": "chunk-3"
+            },
+            "created_at": "2025-06-20T23:19:05.633176+00:00"
+          }
+        ],
+        "metadata": {
+          "title": "Maple Tree"
+        },
+        "created_at": "2025-06-20T23:19:05.633177+00:00"
+      }
+    ],
+    "metadata": {
+      "name": "Forest",
+      "category": "nature"
+    },
+    "created_at": "2025-06-20T23:17:48.827360+00:00"
+  }
+]
