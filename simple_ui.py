@@ -1,21 +1,27 @@
 import streamlit as st
 import requests
+from sentence_transformers import SentenceTransformer
+
+# Load the embedding model (same as your API)
+@st.cache_resource
+def load_model():
+    return SentenceTransformer('all-MiniLM-L6-v2')
+
+model = load_model()
+
+def embed_text(text: str, is_query: bool = False) -> list:
+    """Generate embedding using the same model as your API"""
+    embedding = model.encode(text, convert_to_tensor=False, normalize_embeddings=True)
+    return embedding.tolist()
 
 st.set_page_config(page_title="Vector DB Playground")
 st.title("🧠 Vector DB Playground")
-
 base_url = "http://localhost:8000"
+
+# ---- Sidebar Navigation ----
 tab = st.sidebar.radio("Choose an action", ["Create Library", "Add Document", "Search Library"])
-def embed_text(text: str, use_dummy: bool = True) -> list[float]:
-    if use_dummy:
-        base = sum(ord(c) for c in text[:10]) % 100
-        return [round(base / 100, 2), 0.2, 0.3]
-    else:
-        import cohere
-        co = cohere.Client("YOUR_API_KEY")  # Replace with actual key
-        response = co.embed(texts=[text], model="embed-english-v3.0")
-        return response.embeddings[0]
-# 1. CREATE LIBRARY
+
+# ---- 1. Create Library ----
 if tab == "Create Library":
     st.header("📚 Create a New Library")
     name = st.text_input("Library Name")
@@ -37,7 +43,7 @@ if tab == "Create Library":
             st.error(f"Error: {res.status_code}")
             st.text(res.text)
 
-# 2. ADD DOCUMENT
+# ---- 2. Add Document ----
 elif tab == "Add Document":
     st.header("📄 Add Document to Library")
     res = requests.get(f"{base_url}/v1/libraries/")
@@ -55,19 +61,27 @@ elif tab == "Add Document":
 
     doc_title = st.text_input("Document Title")
     chunk_text = st.text_area("Enter 1 chunk per line", height=150)
-    auto_embed = st.checkbox("Use dummy embedding for each chunk", value=True)
 
     if st.button("Add Document"):
         lines = [line.strip() for line in chunk_text.strip().split("\n") if line.strip()]
         chunks = []
+        
+        # Show progress bar
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
         for i, line in enumerate(lines):
-            embedding = embed_text(line, use_dummy=auto_embed)
+            status_text.text(f"Embedding chunk {i+1}/{len(lines)}: {line[:50]}...")
+            progress_bar.progress((i + 1) / len(lines))
+            
+            embedding = embed_text(line, is_query=False)
             chunks.append({
                 "text": line,
                 "embedding": embedding,
                 "metadata": {"source": f"chunk-{i+1}"}
             })
 
+        status_text.text("Sending to API...")
         doc = {
             "metadata": {"title": doc_title},
             "chunks": chunks
@@ -75,17 +89,17 @@ elif tab == "Add Document":
 
         res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/documents", json=doc)
         if res.ok:
-            st.success("Document added!")
+            st.success(f"Document added with {len(chunks)} chunks!")
+            progress_bar.empty()
+            status_text.empty()
         else:
             st.error(f"Failed to add document. Code {res.status_code}")
             st.text(res.text)
 
-
-# 3. SEARCH
+# ---- 3. Search Library ----
 elif tab == "Search Library":
     st.header("🔍 Search in Library")
     
-    # Fetch available libraries
     res = requests.get(f"{base_url}/v1/libraries/")
     if res.ok:
         libraries = res.json()
@@ -102,50 +116,53 @@ elif tab == "Search Library":
         st.error("Could not fetch libraries.")
         st.stop()
 
-    # Embedding method and query
     query_text = st.text_input("Search Query", placeholder="e.g., What is machine learning?")
-    use_dummy = st.checkbox("Use dummy embedding", value=True)
     k = st.slider("Top K Results", 1, 10, 3)
     method = st.selectbox("Search Method", ["brute", "centroid"])
+    
+    # Option to choose between local embedding or API embedding
+    use_local_embedding = st.checkbox("Generate embedding locally (faster)", value=True)
 
-    # Embedding helper
-    def embed_text(text: str, use_dummy: bool = True) -> list[float]:
-        if use_dummy:
-            base = sum(ord(c) for c in text[:10]) % 100
-            return [round(base / 100, 2), 0.2, 0.3]
-        else:
-            import cohere
-            co = cohere.Client("YOUR_API_KEY")  # Replace with actual key
-            response = co.embed(texts=[text], model="embed-english-v3.0")
-            return response.embeddings[0]
-
-    # Trigger search
     if st.button("Search"):
         if not query_text:
             st.warning("Please enter a query.")
             st.stop()
+        
         try:
-            embedding = embed_text(query_text, use_dummy=use_dummy)
-            payload = {
-                "embedding": embedding,
-                "k": k,
-                "method": method
-            }
-            res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/search", json=payload)
+            if use_local_embedding:
+                # Generate embedding locally and use /search endpoint
+                with st.spinner("Generating embedding..."):
+                    embedding = embed_text(query_text, is_query=True)
+                
+                payload = {
+                    "embedding": embedding,
+                    "k": k,
+                    "method": method
+                }
+                res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/search", json=payload)
+            else:
+                # Let the API generate embedding using /query endpoint
+                payload = {
+                    "query": query_text,
+                    "k": k,
+                    "method": method
+                }
+                res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/query", json=payload)
+            
             if res.ok:
                 results = res.json()
                 if not results:
                     st.info("No results found.")
-                for i, chunk in enumerate(results):
-                    st.markdown(f"### 🧩 Result {i+1}")
-                    st.write(chunk["text"])
-                    st.json(chunk["metadata"])
+                else:
+                    st.success(f"Found {len(results)} results:")
+                    for i, chunk in enumerate(results):
+                        st.markdown(f"### 🧩 Result {i+1}")
+                        st.write(chunk["text"])
+                        with st.expander("Metadata"):
+                            st.json(chunk["metadata"])
             else:
                 st.error(f"Search failed. Code {res.status_code}")
                 st.text(res.text)
         except Exception as e:
             st.error(f"Search error: {e}")
-
-
-
-
+            st.exception(e)

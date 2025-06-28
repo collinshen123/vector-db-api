@@ -5,8 +5,7 @@ import json
 import os
 from app.models.library import Library
 from pydantic.json import pydantic_encoder
-
-
+from app.core.embedding import get_embedding
 
 class LibraryRepository:
     def __init__(self, db_path: str = "db.json"):
@@ -52,6 +51,11 @@ class LibraryRepository:
             library = self._libraries.get(library_id)
             if not library:
                 return None
+
+            # Embed each chunk using Cohere
+            for chunk in document.chunks:
+                chunk.embedding = get_embedding(chunk.text, input_type="search_document")
+
             library.documents.append(document)
             self._save_to_disk()
             return library
