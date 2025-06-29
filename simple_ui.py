@@ -119,9 +119,6 @@ elif tab == "Search Library":
     query_text = st.text_input("Search Query", placeholder="e.g., What is machine learning?")
     k = st.slider("Top K Results", 1, 10, 3)
     method = st.selectbox("Search Method", ["brute", "centroid"])
-    
-    # Option to choose between local embedding or API embedding
-    use_local_embedding = st.checkbox("Generate embedding locally (faster)", value=True)
 
     if st.button("Search"):
         if not query_text:
@@ -129,25 +126,16 @@ elif tab == "Search Library":
             st.stop()
         
         try:
-            if use_local_embedding:
-                # Generate embedding locally and use /search endpoint
-                with st.spinner("Generating embedding..."):
-                    embedding = embed_text(query_text, is_query=True)
-                
-                payload = {
-                    "embedding": embedding,
-                    "k": k,
-                    "method": method
-                }
-                res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/search", json=payload)
-            else:
-                # Let the API generate embedding using /query endpoint
-                payload = {
-                    "query": query_text,
-                    "k": k,
-                    "method": method
-                }
-                res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/query", json=payload)
+            # Generate embedding locally
+            with st.spinner("Generating embedding and searching..."):
+                embedding = embed_text(query_text, is_query=True)
+            
+            payload = {
+                "embedding": embedding,
+                "k": k,
+                "method": method
+            }
+            res = requests.post(f"{base_url}/v1/libraries/{selected_lib_id}/search", json=payload)
             
             if res.ok:
                 results = res.json()
