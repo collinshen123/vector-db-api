@@ -1,0 +1,10 @@
+venv_vector_db/
+__pycache__/
+*.pyc
+.git/
+simple_ui.py
+.env
+*.log
+.DS_Store
+vercel.json
+requirements-vercel.txt
