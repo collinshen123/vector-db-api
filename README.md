@@ -16,7 +16,7 @@ This project implements a REST API for indexing and querying documents within a 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/vector-db-api
+git clone https://github.com/collinshen123/vector-db-api.git
 cd vector-db-api
 
 # Create initial database file
