@@ -12,13 +12,13 @@ cd vector-db-api
 # Create initial database file
 echo "[]" > db.json
 
-# Build and run with Docker
-docker build -t vector-db-api .
-docker run -p 8000:8000 -v $(pwd)/db.json:/app/db.json vector-db-api
+# Run with Docker (API + Frontend)
+docker compose --profile ui up
 ```
 
 ## Access
 
+- Frontend (Streamlit UI): http://localhost:8501
 - API: http://localhost:8000
 - API Documentation: http://localhost:8000/docs
 
@@ -36,3 +36,4 @@ docker run -p 8000:8000 -v $(pwd)/db.json:/app/db.json vector-db-api
 - Cosine similarity and centroid-based search
 - JSON file persistence
 - RESTful API with FastAPI
+- Interactive web interface with Streamlit
