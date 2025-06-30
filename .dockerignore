@@ -1,0 +1,49 @@
+# Virtual environments
+venv_vector_db/
+venv/
+env/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Development files
+# simple_ui.py  # Commented out so it's included for Streamlit container
+
+# Logs
+*.log
+
+# Deployment files
+vercel.json
+render.yaml
+Procfile
+requirements-vercel.txt
+.vercelignore
+.renderignore
+
+# Test files
+tests/
+pytest.ini

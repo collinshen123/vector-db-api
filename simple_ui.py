@@ -2,6 +2,9 @@ import streamlit as st
 import requests
 from sentence_transformers import SentenceTransformer
 
+# MUST be the first Streamlit command
+st.set_page_config(page_title="Vector DB Playground")
+
 # Load the embedding model (same as your API)
 @st.cache_resource
 def load_model():
@@ -14,9 +17,17 @@ def embed_text(text: str, is_query: bool = False) -> list:
     embedding = model.encode(text, convert_to_tensor=False, normalize_embeddings=True)
     return embedding.tolist()
 
-st.set_page_config(page_title="Vector DB Playground")
 st.title("🧠 Vector DB Playground")
-base_url = "http://localhost:8000"
+# Use Docker service name when running in container, localhost when running locally
+import os
+if os.environ.get('API_URL'):
+    base_url = os.environ.get('API_URL')
+else:
+    # Try to detect if we're in Docker by checking for Docker-specific environment
+    if os.path.exists('/.dockerenv'):
+        base_url = "http://vector-db-api:8000"
+    else:
+        base_url = "http://localhost:8000"
 
 # ---- Sidebar Navigation ----
 tab = st.sidebar.radio("Choose an action", ["Create Library", "Add Document", "Search Library"])

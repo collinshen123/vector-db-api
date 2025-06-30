@@ -1,0 +1,20 @@
+# Dockerfile for Streamlit UI
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install compatible versions to avoid huggingface_hub conflicts
+RUN pip install streamlit==1.28.0 requests==2.31.0 sentence-transformers==2.5.1 huggingface_hub==0.20.3
+
+# Copy the UI file
+COPY simple_ui.py .
+
+# Expose streamlit port
+EXPOSE 8501
+
+# Configure streamlit
+RUN mkdir -p ~/.streamlit
+RUN echo "[server]\nheadless = true\nport = 8501\naddress = \"0.0.0.0\"" > ~/.streamlit/config.toml
+
+# Run streamlit
+CMD ["streamlit", "run", "simple_ui.py"]
